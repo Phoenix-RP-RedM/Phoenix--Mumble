@@ -1,0 +1,33 @@
+# Image officielle DevContainers pour Rust (VS Code/DevPod friendly)
+FROM mcr.microsoft.com/devcontainers/rust:1-bullseye
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Outils système utiles pour Rust + MUSL + protobuf (au cas où)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    pkg-config \
+    curl ca-certificates git make bash \
+    # MUSL toolchain
+    musl musl-tools musl-dev \
+    # ring / perlasm
+    perl \
+    # protoc si tu régénères des .proto (facultatif mais pratique)
+    protobuf-compiler \
+    # openssl CLI (pour générer des certs en dev, pas pour linker)
+    openssl \
+ && rm -rf /var/lib/apt/lists/*
+
+# Préparer rustup (déjà présent) et composantes utiles
+RUN rustup component add rustfmt clippy
+
+# Définir le répertoire de travail (Dev Containers liera le repo ici)
+WORKDIR /workspace
+
+# Permissions pour l'utilisateur vscode (image devcontainers fournit déjà 'vscode')
+USER vscode
+
+# Variables d'env utiles pour MUSL (rappelées aussi dans devcontainer.json)
+ENV CC_x86_64_unknown_linux_musl=musl-gcc
+ENV CARGO_TARGET_X86_64_UNKNOWN_LINUX_MUSL_LINKER=musl-gcc
+ENV CARGO_NET_GIT_FETCH_WITH_CLI=true
