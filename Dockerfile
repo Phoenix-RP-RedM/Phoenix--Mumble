@@ -27,7 +27,5 @@ EXPOSE 64738/tcp
 EXPOSE 8080/tcp
 
 ENV RUST_LOG=info
-ENV HTTP_USER=RePlAcEmE!$
-ENV HTTP_PASSWORD=RePlAcEmE!$
 
-CMD ["/zumble", "--http-user", "$HTTP_USER", "--http-password", "$HTTP_PASSWORD"]
+ENTRYPOINT ["/zumble"]
