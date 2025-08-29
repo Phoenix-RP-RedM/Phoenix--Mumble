@@ -182,7 +182,7 @@ impl Client {
         let mut server_sync = ServerSync::default();
         server_sync.set_max_bandwidth(144000);
         server_sync.set_session(self.session_id);
-        server_sync.set_welcome_text("SoZ Mumble Server".to_string());
+        server_sync.set_welcome_text("Cendres Incandescentes Mumble Server".to_string());
 
         self.send_message(MessageKind::ServerSync, &server_sync).await
     }
