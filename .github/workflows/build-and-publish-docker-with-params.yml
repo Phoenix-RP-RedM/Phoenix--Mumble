@@ -48,12 +48,12 @@ jobs:
         uses: actions/checkout@v4
 
       # Checkout all the repositories (depends on the inputs)
-      - name: Checkout Phoenix--Mumble
+      - name: Checkout Phoenix-Mumble
         uses: actions/checkout@v4
         with:
-          repository: Phoenix-RP-RedM/Phoenix--Mumble
+          repository: Phoenix-RP-RedM/Phoenix-Mumble
           ref: ${{ inputs.branchToDeploy }}
-          path: Phoenix/Phoenix--Mumble
+          path: Phoenix/Phoenix-Mumble
           token: ${{ secrets.PHOENIX_BUILD_IMG }}
 
 
